@@ -2,6 +2,7 @@ package hust.cs.javacourse.search.parse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * <pre>
@@ -16,6 +17,14 @@ public abstract class AbstractTermTupleScanner extends AbstractTermTupleStream {
      * input作为输入流对象，读取文本文件得到一个个三元组TermTuple
      */
     protected BufferedReader input = null;
+    /**
+     * 解析之后的字符串列表
+     */
+    protected List<String> termList = null;
+    /**
+     * 解析之后的字符串列表的当前索引
+     */
+    protected int curIndex = 0;
 
     /**
      * 缺省构造函数
@@ -43,5 +52,4 @@ public abstract class AbstractTermTupleScanner extends AbstractTermTupleStream {
             e.printStackTrace();
         }
     }
-
 }

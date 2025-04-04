@@ -1,5 +1,9 @@
 package hust.cs.javacourse.search.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 停用词表类
  */
@@ -7,8 +11,8 @@ public class StopWords {
     /**
      * 停用词字符串数组
      */
-    public static String[] STOP_WORDS =
-            {"a", "about", "above", "above", "across", "after", "afterwards",
+    public static List<String> STOP_WORDS = new ArrayList<>(Arrays.asList(
+            "a", "about", "above", "above", "across", "after", "afterwards",
                     "again", "against", "all", "almost", "alone", "along", "already", "also","although",
                     "always","am","among", "amongst", "amoungst", "amount",  "an", "and", "another", "any",
                     "anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back",
@@ -37,5 +41,5 @@ public class StopWords {
                     "via", "was", "we", "well", "were", "what", "whatever", "when", "whence", "whenever", "where", "whereafter",
                     "whereas", "whereby", "wherein", "whereupon", "wherever", "whether", "which", "while", "whither", "who",
                     "whoever", "whole", "whom", "whose", "why", "will", "with", "within", "without", "would", "yet", "you",
-                    "your", "yours", "yourself", "yourselves","s","t"};
+                    "your", "yours", "yourself", "yourselves","s","t"));
 }
