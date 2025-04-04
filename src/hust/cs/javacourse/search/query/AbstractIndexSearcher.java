@@ -19,7 +19,7 @@ public abstract class AbstractIndexSearcher {
     /**
      * 多个检索词的逻辑组合
      */
-    public static enum LogicalCombination{
+    public enum LogicalCombination{
         /**
          * 与,即多个检索词必须都在命中文档里出现
          */

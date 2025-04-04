@@ -2,10 +2,8 @@ package hust.cs.javacourse.search.query;
 
 import hust.cs.javacourse.search.index.AbstractPosting;
 import hust.cs.javacourse.search.index.AbstractTerm;
-import hust.cs.javacourse.search.index.AbstractTermTuple;
 import hust.cs.javacourse.search.util.FileUtil;
 
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -120,11 +118,10 @@ public abstract class AbstractHit implements Comparable<AbstractHit>{
 
     /**
      * 比较二个命中结果的大小，根据score比较
-     * @param o     ：要比较的名字结果
-     * @return      ：二个命中结果得分的差值
+     *
+     * @param o ：要比较的名字结果
+     * @return ：二个命中结果得分的差值
      */
     @Override
     public abstract int compareTo(AbstractHit o);
-
-
 }

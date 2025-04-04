@@ -5,14 +5,14 @@ import hust.cs.javacourse.search.parse.AbstractTermTupleFilter;
 import hust.cs.javacourse.search.parse.AbstractTermTupleStream;
 import hust.cs.javacourse.search.util.StopWords;
 
-public class TermTupleFilter extends AbstractTermTupleFilter {
+public class StopWordTermTupleFilter extends AbstractTermTupleFilter {
     /**
      * <pre>
      * 构造函数
      * @param input: Filter的输入，类型为AbstractTermTupleStream
      * </pre>
      */
-    public TermTupleFilter(AbstractTermTupleStream input) {
+    public StopWordTermTupleFilter(AbstractTermTupleStream input) {
         super(input);
     }
 
