@@ -31,7 +31,7 @@ public abstract class AbstractPostingList implements FileSerializable{
     public abstract String toString();
 
     /**
-     * 添加Posting列表,,要求不能有内容重复的posting
+     * 添加Posting列表,要求不能有内容重复的posting
      * @param postings：Posting列表
      */
     public abstract void add(List<AbstractPosting> postings);

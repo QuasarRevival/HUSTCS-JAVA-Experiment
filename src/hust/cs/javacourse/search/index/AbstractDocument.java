@@ -43,6 +43,12 @@ public abstract class AbstractDocument {
         this.docPath = docPath;
     }
 
+    /**
+     * 构造函数
+     * @param docId：文档id
+     * @param docPath：文档绝对路径
+     * @param tuples：文档包含的三元组列表
+     */
     public AbstractDocument(int docId, String docPath,List<AbstractTermTuple> tuples){
         this.docId  = docId;
         this.docPath = docPath;

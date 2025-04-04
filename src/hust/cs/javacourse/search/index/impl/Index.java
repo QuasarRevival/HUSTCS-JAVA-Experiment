@@ -5,9 +5,8 @@ import hust.cs.javacourse.search.index.AbstractIndex;
 import hust.cs.javacourse.search.index.AbstractPostingList;
 import hust.cs.javacourse.search.index.AbstractTerm;
 
-import java.io.File;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.util.HashMap;
 import java.util.Set;
 
 /**
@@ -21,7 +20,12 @@ public class Index extends AbstractIndex {
      */
     @Override
     public String toString() {
-        return null;
+        StringBuilder sb = new StringBuilder();
+        sb.append("Index{");
+        sb.append("docIdToDocPathMapping=").append(docIdToDocPathMapping);
+        sb.append(", termToPostingListMapping=").append(termToPostingListMapping);
+        sb.append('}');
+        return sb.toString();
     }
 
     /**
@@ -31,7 +35,7 @@ public class Index extends AbstractIndex {
      */
     @Override
     public void addDocument(AbstractDocument document) {
-
+        this.docIdToDocPathMapping.put(document.getDocId(), document.getDocPath());
     }
 
     /**
@@ -42,7 +46,23 @@ public class Index extends AbstractIndex {
      */
     @Override
     public void load(File file) {
-
+        if (!file.exists()) {
+            System.out.println("索引文件不存在");
+        }
+        else if (!file.isFile()) {
+            System.out.println("索引文件不是一个文件");
+        }
+        else if (!file.canRead()) {
+            System.out.println("索引文件不可读");
+        }
+        else {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+                readObject(in);
+            } catch (IOException e) {
+                System.out.println("读取索引文件失败");
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -53,7 +73,23 @@ public class Index extends AbstractIndex {
      */
     @Override
     public void save(File file) {
-
+        if (!file.exists()) {
+            System.out.println("索引文件不存在");
+        }
+        else if (!file.isFile()) {
+            System.out.println("索引文件不是一个文件");
+        }
+        else if (!file.canRead()) {
+            System.out.println("索引文件不可读");
+        }
+        else {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+                writeObject(out);
+            } catch (IOException e) {
+                System.out.println("写入索引文件失败");
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -64,7 +100,16 @@ public class Index extends AbstractIndex {
      */
     @Override
     public AbstractPostingList search(AbstractTerm term) {
-        return null;
+        if (term == null) {
+            System.out.println("term不能为空");
+            return null;
+        }
+        AbstractPostingList postingList = termToPostingListMapping.get(term);
+        if (postingList == null) {
+            System.out.println("索引字典没有该单词");
+            return null;
+        }
+        return postingList;
     }
 
     /**
@@ -74,7 +119,7 @@ public class Index extends AbstractIndex {
      */
     @Override
     public Set<AbstractTerm> getDictionary() {
-        return null;
+        return termToPostingListMapping.keySet();
     }
 
     /**
@@ -87,7 +132,12 @@ public class Index extends AbstractIndex {
      */
     @Override
     public void optimize() {
-
+        for (AbstractPostingList postingList : termToPostingListMapping.values()) {
+            postingList.sort();
+            for (int i = 0; i < postingList.size(); i++) {
+                postingList.get(i).sort();
+            }
+        }
     }
 
     /**
@@ -98,7 +148,12 @@ public class Index extends AbstractIndex {
      */
     @Override
     public String getDocName(int docId) {
-        return null;
+        if (docIdToDocPathMapping.containsKey(docId)) {
+            return docIdToDocPathMapping.get(docId);
+        } else {
+            System.out.println("索引字典没有该文档id");
+            return null;
+        }
     }
 
     /**
@@ -108,7 +163,13 @@ public class Index extends AbstractIndex {
      */
     @Override
     public void writeObject(ObjectOutputStream out) {
-
+        try {
+            out.writeObject(docIdToDocPathMapping);
+            out.writeObject(termToPostingListMapping);
+        } catch (IOException e) {
+            System.out.println("写入索引文件失败");
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -118,6 +179,27 @@ public class Index extends AbstractIndex {
      */
     @Override
     public void readObject(ObjectInputStream in) {
-
+        try {
+            Object obj = in.readObject();
+            if (obj instanceof HashMap) {
+                docIdToDocPathMapping = (HashMap<Integer, String>) obj;
+            } else {
+                System.out.println("读取索引文件失败");
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("读取索引文件失败");
+            e.printStackTrace();
+        }
+        try {
+            Object obj = in.readObject();
+            if (obj instanceof HashMap) {
+                termToPostingListMapping = (HashMap<AbstractTerm, AbstractPostingList>) obj;
+            } else {
+                System.out.println("读取索引文件失败");
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("读取索引文件失败");
+            e.printStackTrace();
+        }
     }
 }
