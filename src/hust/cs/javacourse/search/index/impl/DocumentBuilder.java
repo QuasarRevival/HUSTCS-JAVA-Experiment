@@ -4,7 +4,11 @@ import hust.cs.javacourse.search.index.AbstractDocumentBuilder;
 import hust.cs.javacourse.search.index.AbstractDocument;
 import hust.cs.javacourse.search.index.AbstractTermTuple;
 import hust.cs.javacourse.search.parse.AbstractTermTupleStream;
+import hust.cs.javacourse.search.parse.impl.LengthTermTupleFilter;
+import hust.cs.javacourse.search.parse.impl.PatternTermTupleFilter;
+import hust.cs.javacourse.search.parse.impl.StopWordTermTupleFilter;
 import hust.cs.javacourse.search.parse.impl.TermTupleScanner;
+import hust.cs.javacourse.search.util.Config;
 
 import java.io.*;
 import java.util.List;
@@ -48,7 +52,8 @@ public class DocumentBuilder extends AbstractDocumentBuilder {
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        AbstractTermTupleStream termTupleStream = new TermTupleScanner(reader);
+        AbstractTermTupleStream termTupleStream = new PatternTermTupleFilter(new LengthTermTupleFilter(
+                new StopWordTermTupleFilter(new TermTupleScanner(reader))));
         return build(docId, docPath, termTupleStream);
     }
 }

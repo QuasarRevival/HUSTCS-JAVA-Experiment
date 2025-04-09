@@ -42,8 +42,7 @@ public class PostingList extends AbstractPostingList {
     @Override
     public void add(List<AbstractPosting> postings) {
         for (AbstractPosting posting : postings) {
-            if(indexOf(posting) == -1)
-                add(posting);
+            add(posting);
         }
     }
 

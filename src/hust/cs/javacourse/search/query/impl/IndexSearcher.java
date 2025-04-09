@@ -41,6 +41,9 @@ public class IndexSearcher extends AbstractIndexSearcher {
     public AbstractHit[] search(AbstractTerm queryTerm, Sort sorter) {
         AbstractPostingList postingList = this.index.search(queryTerm);
         List<AbstractHit> hits = new ArrayList<>();
+        if (postingList == null) {
+            return new AbstractHit[0];
+        }
         for (int i = 0; i < postingList.size(); i++) {
             AbstractHit hit = new Hit(postingList.get(i).getDocId(), index.getDocName(postingList.get(i).getDocId()));
             hit.getTermPostingMapping()

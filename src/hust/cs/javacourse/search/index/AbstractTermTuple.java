@@ -26,6 +26,11 @@ public abstract class AbstractTermTuple {
      */
     public int curPos ;
 
+    public AbstractTermTuple() {
+        this.term = null;
+        this.curPos = -1;
+    }
+
     /**
      * <pre>
      *     构造函数

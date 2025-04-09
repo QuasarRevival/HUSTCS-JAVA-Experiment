@@ -38,7 +38,7 @@ public class Posting extends AbstractPosting {
 
         if (docId != posting.docId) return false;
         if (freq != posting.freq) return false;
-        return Objects.equals(positions, posting.positions);
+        return posting.positions.containsAll(positions) && positions.size() == posting.positions.size();
     }
 
     /**

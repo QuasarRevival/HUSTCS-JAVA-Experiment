@@ -10,6 +10,7 @@ import hust.cs.javacourse.search.util.StringSplitter;
 import java.io.IOException;
 
 public class TermTupleScanner extends AbstractTermTupleScanner {
+    private boolean ignoreCase = true; // 是否忽略大小写
     /**
      * <pre>
      * 缺省构造函数
@@ -17,6 +18,7 @@ public class TermTupleScanner extends AbstractTermTupleScanner {
      */
     public TermTupleScanner() {
         super();
+        ignoreCase = Config.IGNORE_CASE;
     }
 
     /**
@@ -36,6 +38,9 @@ public class TermTupleScanner extends AbstractTermTupleScanner {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            if (ignoreCase) {
+                read = read.toLowerCase();
+            }
             termList.addAll(splitter.splitByRegex(read));
         }
     }
@@ -50,7 +55,6 @@ public class TermTupleScanner extends AbstractTermTupleScanner {
             return null;
         }
         String termStr = termList.get(curIndex);
-        curIndex++;
-        return new TermTuple(new Term(termStr) , curIndex);
+        return new TermTuple(new Term(termStr) , curIndex++);
     }
 }

@@ -44,7 +44,7 @@ public class Term extends AbstractTerm {
      */
     @Override
     public String toString() {
-        return "Term: " + this.content;
+        return this.content;
     }
 
     /**

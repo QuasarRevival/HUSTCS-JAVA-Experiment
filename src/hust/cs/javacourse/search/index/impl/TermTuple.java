@@ -6,6 +6,14 @@ import hust.cs.javacourse.search.index.AbstractTerm;
 public class TermTuple extends AbstractTermTuple {
     /**
      * <pre>
+     * 默认构造函数
+     * </pre>
+     */
+    public TermTuple() {
+        super();
+    }
+    /**
+     * <pre>
      * 构造函数
      * @param term: 单词
      * @param curPos: 单词出现的当前位置
