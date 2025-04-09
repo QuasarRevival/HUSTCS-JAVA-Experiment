@@ -1,12 +1,11 @@
 package hust.cs.javacourse.search.index.impl;
 
-import hust.cs.javacourse.search.index.AbstractDocument;
-import hust.cs.javacourse.search.index.AbstractIndex;
-import hust.cs.javacourse.search.index.AbstractPostingList;
-import hust.cs.javacourse.search.index.AbstractTerm;
+import hust.cs.javacourse.search.index.*;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -36,6 +35,24 @@ public class Index extends AbstractIndex {
     @Override
     public void addDocument(AbstractDocument document) {
         this.docIdToDocPathMapping.put(document.getDocId(), document.getDocPath());
+        List<AbstractTermTuple> tuples = document.getTuples();
+        AbstractPostingList postingList;
+        for (AbstractTermTuple tuple : tuples) {
+            if((postingList = search(tuple.term)) == null) {
+                postingList = new PostingList();
+                this.termToPostingListMapping.put(tuple.term, postingList);
+                postingList.add(new Posting(document.getDocId(), 1, new ArrayList<>(List.of(tuple.curPos))));
+            }
+            else {
+                AbstractPosting posting = postingList.get(postingList.indexOf(document.getDocId()));
+                if (posting == null) {
+                    postingList.add(new Posting(document.getDocId(), 1, new ArrayList<>(List.of(tuple.curPos))));
+                } else {
+                    posting.setFreq(posting.getFreq() + 1);
+                    posting.getPositions().add(tuple.curPos);
+                }
+            }
+        }
     }
 
     /**
@@ -104,12 +121,7 @@ public class Index extends AbstractIndex {
             System.out.println("term不能为空");
             return null;
         }
-        AbstractPostingList postingList = termToPostingListMapping.get(term);
-        if (postingList == null) {
-            System.out.println("索引字典没有该单词");
-            return null;
-        }
-        return postingList;
+        return termToPostingListMapping.get(term);
     }
 
     /**

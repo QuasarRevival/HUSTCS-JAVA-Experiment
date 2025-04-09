@@ -55,7 +55,7 @@ public class PostingList extends AbstractPostingList {
     @Override
     public AbstractPosting get(int index) {
         if (index < 0 || index >= list.size()) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + list.size());
+            return null;
         }
         return list.get(index);
     }

@@ -39,6 +39,7 @@ public abstract class AbstractTermTupleScanner extends AbstractTermTupleStream {
      */
     public  AbstractTermTupleScanner(BufferedReader input){
         this.input = input;
+        termList = new java.util.ArrayList<>();
     }
 
     /**

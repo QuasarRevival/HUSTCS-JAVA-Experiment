@@ -1,11 +1,9 @@
 package hust.cs.javacourse.search.index.impl;
 
-import hust.cs.javacourse.search.index.AbstractDocument;
-import hust.cs.javacourse.search.index.AbstractDocumentBuilder;
-import hust.cs.javacourse.search.index.AbstractIndexBuilder;
-import hust.cs.javacourse.search.index.AbstractIndex;
+import hust.cs.javacourse.search.index.*;
 
 import java.io.File;
+import java.util.List;
 
 public class IndexBuilder extends AbstractIndexBuilder {
     /**

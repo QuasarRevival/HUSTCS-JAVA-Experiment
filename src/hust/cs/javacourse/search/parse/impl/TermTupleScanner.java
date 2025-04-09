@@ -1,6 +1,5 @@
 package hust.cs.javacourse.search.parse.impl;
 
-import hust.cs.javacourse.search.index.AbstractTerm;
 import hust.cs.javacourse.search.index.AbstractTermTuple;
 import hust.cs.javacourse.search.index.impl.Term;
 import hust.cs.javacourse.search.index.impl.TermTuple;
